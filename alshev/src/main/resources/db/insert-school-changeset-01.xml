@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <changeSet id="2" author="Alina">
+        <insert tableName="school">
+            <column name="name" value="СОШ №1"/>
+            <column name="address" value="ул. Ленина, 15"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Гимназия №2"/>
+            <column name="address" value="пр. Мира, 28"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Лицей №3"/>
+            <column name="address" value="ул. Пушкина, 42"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №4"/>
+            <column name="address" value="ул. Гагарина, 7"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Гимназия №5"/>
+            <column name="address" value="ул. Космонавтов, 33"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №6"/>
+            <column name="address" value="ул. Советская, 12"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Лицей №7"/>
+            <column name="address" value="пр. Победы, 55"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №8"/>
+            <column name="address" value="ул. Маяковского, 18"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Гимназия №9"/>
+            <column name="address" value="ул. Чехова, 23"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №10"/>
+            <column name="address" value="ул. Толстого, 44"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+                <column name="name" value="Лицей №11"/>
+                <column name="address" value="пр. Ломоносова, 61"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+                <column name="name" value="СОШ №12"/>
+                <column name="address" value="ул. Достоевского, 37"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+                <column name="name" value="Гимназия №13"/>
+                <column name="address" value="ул. Некрасова, 52"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+            <insert tableName="school">
+                <column name="name" value="СОШ №14"/>
+                <column name="address" value="пр. Менделеева, 29"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+            </insert>
+            <insert tableName="school">
+                <column name="name" value="Лицей №15"/>
+                <column name="address" value="ул. Горького, 81"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+            </insert>
+            <insert tableName="school">
+                <column name="name" value="СОШ №16"/>
+                <column name="address" value="ул. Тютчева, 19"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+            </insert>
+            <insert tableName="school">
+                <column name="name" value="Гимназия №17"/>
+                <column name="address" value="пр. Циолковского, 66"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+            </insert>
+            <insert tableName="school">
+                <column name="name" value="СОШ №18"/>
+                <column name="address" value="ул. Фета, 13"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+            </insert>
+            <insert tableName="school">
+                <column name="name" value="Лицей №19"/>
+                <column name="address" value="ул. Королёва, 72"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+            </insert>
+            <insert tableName="school">
+                <column name="name" value="СОШ №20"/>
+                <column name="address" value="ул. Тургенева, 88"/>
+                <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+                <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+            </insert>
+        <insert tableName="school">
+            <column name="name" value="Гимназия №21"/>
+            <column name="address" value="ул. Есенина, 45"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №22"/>
+            <column name="address" value="пр. Жуковского, 31"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Лицей №23"/>
+            <column name="address" value="ул. Блока, 54"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №24"/>
+            <column name="address" value="ул. Цветаевой, 27"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Гимназия №25"/>
+            <column name="address" value="пр. Пастернака, 63"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №26"/>
+            <column name="address" value="ул. Ахматовой, 91"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Лицей №27"/>
+            <column name="address" value="ул. Бродского, 38"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №28"/>
+            <column name="address" value="пр. Мандельштама, 75"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="Гимназия №29"/>
+            <column name="address" value="ул. Окуджавы, 22"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+        <insert tableName="school">
+            <column name="name" value="СОШ №30"/>
+            <column name="address" value="ул. Высоцкого, 49"/>
+            <column name="created_at" valueDate="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueDate="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
