@@ -3,12 +3,10 @@ package school.project.util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
-import school.project.dto.*;
-import school.project.entity.SchoolEntity;
-import school.project.mapper.SchoolMapper;
+import school.project.dto.SchoolCreateDTO;
+import school.project.dto.SchoolEntityDTO;
 import school.project.service.SchoolService;
 
 @Component

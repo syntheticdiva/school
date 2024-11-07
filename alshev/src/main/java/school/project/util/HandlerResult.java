@@ -1,7 +1,6 @@
 package school.project.util;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter
