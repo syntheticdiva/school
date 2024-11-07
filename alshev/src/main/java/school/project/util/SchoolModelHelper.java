@@ -1,10 +1,10 @@
 package school.project.util;
 
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import school.project.dto.SchoolCreateDTO;
 import school.project.dto.SchoolEntityDTO;
 
 @Component
@@ -17,7 +17,11 @@ public class SchoolModelHelper {
         model.addAttribute("totalItems", schoolPage.getTotalElements());
     }
 
-    public void addSchoolFormAttributes(Model model, SchoolEntityDTO school) {
+    public void addSchoolFormAttributes(Model model, SchoolCreateDTO school) {
+        model.addAttribute("school", school);
+    }
+
+    public void addSchoolEditFormAttributes(Model model, SchoolEntityDTO school) {
         model.addAttribute("school", school);
     }
 

@@ -1,4 +1,5 @@
 package school.project.controller;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,15 +11,16 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import school.project.dto.SchoolCreateDTO;
 import school.project.dto.SchoolEntityDTO;
 import school.project.util.HandlerResult;
 import school.project.util.SchoolHandler;
 import school.project.util.SchoolModelHelper;
 
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static school.project.constants.Constants.*;
 
@@ -44,20 +46,24 @@ class SchoolControllerTest {
     private SchoolController schoolController;
 
     private SchoolEntityDTO schoolDTO;
+    private SchoolCreateDTO schoolCreateDTO;
     private Page<SchoolEntityDTO> schoolPage;
-    private HandlerResult successResult;
-    private HandlerResult failureResult;
 
     @BeforeEach
     void setUp() {
         schoolDTO = new SchoolEntityDTO();
-        schoolPage = new PageImpl<>(Collections.singletonList(schoolDTO));
-        successResult = new HandlerResult(true, "Success");
-        failureResult = new HandlerResult(false, "Failure");
+        schoolDTO.setId(1L);
+        schoolDTO.setName("Test School");
+
+        schoolCreateDTO = new SchoolCreateDTO();
+        schoolCreateDTO.setName("New School");
+
+        List<SchoolEntityDTO> schools = Arrays.asList(schoolDTO);
+        schoolPage = new PageImpl<>(schools);
     }
 
     @Test
-    void listSchools_ShouldReturnAllSchools() {
+    void listSchools_ShouldReturnAllSchoolsView() {
         when(schoolHandler.handleListRequest(0, 10)).thenReturn(schoolPage);
 
         String viewName = schoolController.listSchools(model, 0);
@@ -67,9 +73,8 @@ class SchoolControllerTest {
     }
 
     @Test
-    void listSchools_WithEmptyPageAndPageGreaterThanZero_ShouldRedirect() {
-        when(schoolHandler.handleListRequest(1, 10))
-                .thenReturn(new PageImpl<>(Collections.emptyList()));
+    void listSchools_WithEmptyPageAndNonZeroPageNumber_ShouldRedirect() {
+        when(schoolHandler.handleListRequest(1, 10)).thenReturn(Page.empty());
 
         String viewName = schoolController.listSchools(model, 1);
 
@@ -77,32 +82,22 @@ class SchoolControllerTest {
     }
 
     @Test
-    void showCreateForm_ShouldReturnCreateView() {
-        when(schoolHandler.handleCreateRequest()).thenReturn(schoolDTO);
+    void saveSchool_WithValidData_ShouldRedirect() {
+        HandlerResult successResult = new HandlerResult(true, "Success");
+        when(schoolHandler.handleSaveRequest(eq(schoolCreateDTO), any(BindingResult.class))).thenReturn(successResult);
 
-        String viewName = schoolController.showCreateForm(model);
+        String viewName = schoolController.saveSchool(schoolCreateDTO, bindingResult, redirectAttributes);
 
-        assertEquals(CREATE_VIEW, viewName);
-        verify(modelHelper).addSchoolFormAttributes(model, schoolDTO);
-    }
-
-    @Test
-    void saveSchool_WhenSuccessful_ShouldRedirect() {
-        when(schoolHandler.handleSaveRequest(any(SchoolEntityDTO.class), any(BindingResult.class)))
-                .thenReturn(successResult);
-
-        String viewName = schoolController.saveSchool(schoolDTO, bindingResult, redirectAttributes);
-
-        assertEquals("redirect:/" + REDIRECT_SCHOOLS, viewName); // Добавлен слэш после "redirect:"
+        assertEquals("redirect:/" + REDIRECT_SCHOOLS, viewName);
         verify(modelHelper).addResultAttributes(redirectAttributes, successResult);
     }
 
     @Test
-    void saveSchool_WhenFailed_ShouldReturnCreateView() {
-        when(schoolHandler.handleSaveRequest(any(SchoolEntityDTO.class), any(BindingResult.class)))
-                .thenReturn(failureResult);
+    void saveSchool_WithInvalidData_ShouldReturnCreateView() {
+        HandlerResult failureResult = new HandlerResult(false, "Failure");
+        when(schoolHandler.handleSaveRequest(eq(schoolCreateDTO), any(BindingResult.class))).thenReturn(failureResult);
 
-        String viewName = schoolController.saveSchool(schoolDTO, bindingResult, redirectAttributes);
+        String viewName = schoolController.saveSchool(schoolCreateDTO, bindingResult, redirectAttributes);
 
         assertEquals(CREATE_VIEW, viewName);
         verify(modelHelper).addResultAttributes(redirectAttributes, failureResult);
@@ -110,29 +105,30 @@ class SchoolControllerTest {
 
     @Test
     void showEditForm_ShouldReturnEditView() {
-        when(schoolHandler.handleEditRequest(anyLong())).thenReturn(schoolDTO);
+        when(schoolHandler.handleEditRequest(1L)).thenReturn(schoolDTO);
 
         String viewName = schoolController.showEditForm(1L, model);
 
         assertEquals(EDIT_VIEW, viewName);
-        verify(modelHelper).addSchoolFormAttributes(model, schoolDTO);
+        verify(model).addAttribute("school", schoolDTO);
+        verify(model).addAttribute("schoolId", 1L);
     }
 
     @Test
-    void updateSchool_WhenSuccessful_ShouldRedirect() {
-        when(schoolHandler.handleUpdateRequest(anyLong(), any(SchoolEntityDTO.class), any(BindingResult.class)))
-                .thenReturn(successResult);
+    void updateSchool_WithValidData_ShouldRedirect() {
+        HandlerResult successResult = new HandlerResult(true, "Success");
+        when(schoolHandler.handleUpdateRequest(eq(1L), eq(schoolDTO), any(BindingResult.class))).thenReturn(successResult);
 
         String viewName = schoolController.updateSchool(1L, schoolDTO, bindingResult, redirectAttributes);
 
-        assertEquals("redirect:/" + REDIRECT_SCHOOLS, viewName); // Добавлен слэш после "redirect:"
+        assertEquals("redirect:/" + REDIRECT_SCHOOLS, viewName);
         verify(modelHelper).addResultAttributes(redirectAttributes, successResult);
     }
 
     @Test
-    void updateSchool_WhenFailed_ShouldReturnEditView() {
-        when(schoolHandler.handleUpdateRequest(anyLong(), any(SchoolEntityDTO.class), any(BindingResult.class)))
-                .thenReturn(failureResult);
+    void updateSchool_WithInvalidData_ShouldReturnEditView() {
+        HandlerResult failureResult = new HandlerResult(false, "Failure");
+        when(schoolHandler.handleUpdateRequest(eq(1L), eq(schoolDTO), any(BindingResult.class))).thenReturn(failureResult);
 
         String viewName = schoolController.updateSchool(1L, schoolDTO, bindingResult, redirectAttributes);
 
@@ -142,11 +138,12 @@ class SchoolControllerTest {
 
     @Test
     void deleteSchool_ShouldRedirect() {
-        when(schoolHandler.handleDeleteRequest(anyLong())).thenReturn(successResult);
+        HandlerResult result = new HandlerResult(true, "Deleted");
+        when(schoolHandler.handleDeleteRequest(1L)).thenReturn(result);
 
         String viewName = schoolController.deleteSchool(1L, redirectAttributes);
 
-        assertEquals("redirect:/" + REDIRECT_SCHOOLS, viewName); // Добавлен слэш после "redirect:"
-        verify(modelHelper).addResultAttributes(redirectAttributes, successResult);
+        assertEquals("redirect:/" + REDIRECT_SCHOOLS, viewName);
+        verify(modelHelper).addResultAttributes(redirectAttributes, result);
     }
 }

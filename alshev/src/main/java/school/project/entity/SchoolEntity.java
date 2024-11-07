@@ -20,13 +20,9 @@ public class SchoolEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @NotBlank(message = "Address is required")
-    @Size(max = 200, message = "Address must not exceed 200 characters")
     @Column(name = "address", nullable = false, length = 200)
     private String address;
 

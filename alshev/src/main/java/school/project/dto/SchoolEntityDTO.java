@@ -8,11 +8,11 @@ import lombok.Data;
 public class SchoolEntityDTO {
     private Long id;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")
+    @NotBlank(message = "Название школы обязательно для заполнения")
+    @Size(min = 2, max = 100, message = "Название школы должно содержать от 2 до 100 символов")
     private String name;
 
-    @NotBlank(message = "Address is required")
-    @Size(max = 200, message = "Address must not exceed 200 characters")
+    @NotBlank(message = "Адрес школы обязателен для заполнения")
+    @Size(max = 200, message = "Адрес школы не должен превышать 200 символов")
     private String address;
 }

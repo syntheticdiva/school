@@ -1,7 +1,5 @@
 package school.project.controller;
 
-
-
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -10,12 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import school.project.dto.SchoolEntityDTO;
+import school.project.dto.*;
 import school.project.util.HandlerResult;
 import school.project.util.SchoolHandler;
 import school.project.util.SchoolModelHelper;
 
 import static school.project.constants.Constants.*;
+
 @Controller
 @RequestMapping("/schools")
 @Slf4j
@@ -40,12 +39,12 @@ public class SchoolController {
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
-        modelHelper.addSchoolFormAttributes(model, schoolHandler.handleCreateRequest());
+        modelHelper.addSchoolFormAttributes(model, new SchoolCreateDTO());
         return CREATE_VIEW;
     }
 
     @PostMapping
-    public String saveSchool(@Valid @ModelAttribute("school") SchoolEntityDTO schoolDTO,
+    public String saveSchool(@Valid @ModelAttribute("school") SchoolCreateDTO schoolDTO,
                              BindingResult result,
                              RedirectAttributes redirectAttributes) {
         HandlerResult handlerResult = schoolHandler.handleSaveRequest(schoolDTO, result);
@@ -56,7 +55,8 @@ public class SchoolController {
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         SchoolEntityDTO school = schoolHandler.handleEditRequest(id);
-        modelHelper.addSchoolFormAttributes(model, school);
+        model.addAttribute("school", school);
+        model.addAttribute("schoolId", id);
         return EDIT_VIEW;
     }
 

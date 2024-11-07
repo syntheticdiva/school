@@ -6,7 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
-import school.project.dto.SchoolEntityDTO;
+import school.project.dto.*;
+import school.project.entity.SchoolEntity;
+import school.project.mapper.SchoolMapper;
 import school.project.service.SchoolService;
 
 @Component
@@ -19,21 +21,15 @@ public class SchoolHandler {
     }
 
     public Page<SchoolEntityDTO> handleListRequest(int page, int pageSize) {
-        Sort sort = Sort.by("id").ascending();
-        PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
-        return schoolService.getAllSchoolsPaged(pageRequest);
+        return schoolService.getAllSchoolsPaged(PageRequest.of(page, pageSize));
     }
 
-    public SchoolEntityDTO handleCreateRequest() {
-        return new SchoolEntityDTO();
-    }
-
-    public HandlerResult handleSaveRequest(SchoolEntityDTO schoolDTO, BindingResult result) {
+    public HandlerResult handleSaveRequest(SchoolCreateDTO schoolDTO, BindingResult result) {
         if (result.hasErrors()) {
             return new HandlerResult(false, "Validation errors occurred");
         }
         try {
-            schoolService.save(schoolDTO);
+            schoolService.create(schoolDTO);
             return new HandlerResult(true, "School created successfully!");
         } catch (Exception e) {
             log.error("Error while saving school", e);
@@ -41,13 +37,16 @@ public class SchoolHandler {
         }
     }
 
+    public SchoolEntityDTO handleEditRequest(Long id) {
+        return schoolService.findById(id);
+    }
+
     public HandlerResult handleUpdateRequest(Long id, SchoolEntityDTO schoolDTO, BindingResult result) {
         if (result.hasErrors()) {
             return new HandlerResult(false, "Validation errors occurred");
         }
         try {
-            schoolDTO.setId(id);
-            schoolService.save(schoolDTO);
+            schoolService.update(id, schoolDTO);
             return new HandlerResult(true, "School updated successfully!");
         } catch (Exception e) {
             log.error("Error while updating school", e);
@@ -63,9 +62,5 @@ public class SchoolHandler {
             log.error("Error while deleting school", e);
             return new HandlerResult(false, "Error deleting school");
         }
-    }
-
-    public SchoolEntityDTO handleEditRequest(Long id) {
-        return schoolService.findById(id);
     }
 }

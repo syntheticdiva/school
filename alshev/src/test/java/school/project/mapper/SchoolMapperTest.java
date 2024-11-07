@@ -2,6 +2,7 @@ package school.project.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
+import school.project.dto.SchoolCreateDTO;
 import school.project.dto.SchoolEntityDTO;
 import school.project.entity.SchoolEntity;
 
@@ -12,22 +13,33 @@ class SchoolMapperTest {
     private final SchoolMapper mapper = Mappers.getMapper(SchoolMapper.class);
 
     @Test
-    void testMapperInstance() {
-        assertNotNull(SchoolMapper.INSTANCE);
+    void toEntity_FromCreateDTO_ShouldMapAllFields() {
+        // Given
+        SchoolCreateDTO createDTO = new SchoolCreateDTO();
+        createDTO.setName("Test School");
+        createDTO.setAddress("Test Address");
+
+        // When
+        SchoolEntity entity = mapper.toEntity(createDTO);
+
+        // Then
+        assertNotNull(entity);
+        assertEquals(createDTO.getName(), entity.getName());
+        assertEquals(createDTO.getAddress(), entity.getAddress());
     }
 
     @Test
-    void testToDTO() {
-        // Подготовка тестовых данных
+    void toDto_FromEntity_ShouldMapAllFields() {
+        // Given
         SchoolEntity entity = new SchoolEntity();
         entity.setId(1L);
         entity.setName("Test School");
         entity.setAddress("Test Address");
 
-        // Выполнение маппинга
-        SchoolEntityDTO dto = mapper.toDTO(entity);
+        // When
+        SchoolEntityDTO dto = mapper.toDto(entity);
 
-        // Проверка результатов
+        // Then
         assertNotNull(dto);
         assertEquals(entity.getId(), dto.getId());
         assertEquals(entity.getName(), dto.getName());
@@ -35,17 +47,17 @@ class SchoolMapperTest {
     }
 
     @Test
-    void testToEntity() {
-        // Подготовка тестовых данных
+    void toEntity_FromEntityDTO_ShouldMapAllFields() {
+        // Given
         SchoolEntityDTO dto = new SchoolEntityDTO();
         dto.setId(1L);
         dto.setName("Test School");
         dto.setAddress("Test Address");
 
-        // Выполнение маппинга
+        // When
         SchoolEntity entity = mapper.toEntity(dto);
 
-        // Проверка результатов
+        // Then
         assertNotNull(entity);
         assertEquals(dto.getId(), entity.getId());
         assertEquals(dto.getName(), entity.getName());
@@ -53,45 +65,70 @@ class SchoolMapperTest {
     }
 
     @Test
-    void testNullToDTO() {
-        SchoolEntityDTO dto = mapper.toDTO(null);
-        assertNull(dto);
+    void updateEntityFromDto_ShouldUpdateOnlyNonNullFields() {
+        // Given
+        SchoolEntity existingEntity = new SchoolEntity();
+        existingEntity.setId(1L);
+        existingEntity.setName("Original Name");
+        existingEntity.setAddress("Original Address");
+
+        SchoolEntityDTO updateDto = new SchoolEntityDTO();
+        updateDto.setName("New Name");
+        updateDto.setAddress(null); // Этот параметр не должен обновиться
+
+        // When
+        mapper.updateEntityFromDto(updateDto, existingEntity);
+
+        // Then
+        assertEquals("New Name", existingEntity.getName());
+        assertEquals("Original Address", existingEntity.getAddress());
+        assertEquals(1L, existingEntity.getId());
     }
 
     @Test
-    void testNullToEntity() {
-        SchoolEntity entity = mapper.toEntity(null);
-        assertNull(entity);
+    void toEntity_FromCreateDTO_WithNullValues_ShouldNotThrowException() {
+        // Given
+        SchoolCreateDTO createDTO = new SchoolCreateDTO();
+
+        // When
+        SchoolEntity entity = mapper.toEntity(createDTO);
+
+        // Then
+        assertNotNull(entity);
+        assertNull(entity.getName());
+        assertNull(entity.getAddress());
     }
 
     @Test
-    void testPartialMapping() {
-        // Тест маппинга с частично заполненными данными
+    void toDto_FromEntity_WithNullValues_ShouldNotThrowException() {
+        // Given
         SchoolEntity entity = new SchoolEntity();
-        entity.setName("Test School");
-        // Не устанавливаем остальные поля
 
-        SchoolEntityDTO dto = mapper.toDTO(entity);
+        // When
+        SchoolEntityDTO dto = mapper.toDto(entity);
 
+        // Then
         assertNotNull(dto);
-        assertNull(dto.getId());
-        assertEquals(entity.getName(), dto.getName());
+        assertNull(dto.getName());
         assertNull(dto.getAddress());
     }
 
     @Test
-    void testRoundTrip() {
-        // Тест преобразования entity -> dto -> entity
-        SchoolEntity originalEntity = new SchoolEntity();
-        originalEntity.setId(1L);
-        originalEntity.setName("Test School");
-        originalEntity.setAddress("Test Address");
+    void updateEntityFromDto_WithAllNullValues_ShouldNotChangeOriginalValues() {
+        // Given
+        SchoolEntity existingEntity = new SchoolEntity();
+        existingEntity.setId(1L);
+        existingEntity.setName("Original Name");
+        existingEntity.setAddress("Original Address");
 
-        SchoolEntityDTO dto = mapper.toDTO(originalEntity);
-        SchoolEntity mappedEntity = mapper.toEntity(dto);
+        SchoolEntityDTO updateDto = new SchoolEntityDTO();
 
-        assertEquals(originalEntity.getId(), mappedEntity.getId());
-        assertEquals(originalEntity.getName(), mappedEntity.getName());
-        assertEquals(originalEntity.getAddress(), mappedEntity.getAddress());
+        // When
+        mapper.updateEntityFromDto(updateDto, existingEntity);
+
+        // Then
+        assertEquals("Original Name", existingEntity.getName());
+        assertEquals("Original Address", existingEntity.getAddress());
+        assertEquals(1L, existingEntity.getId());
     }
 }
