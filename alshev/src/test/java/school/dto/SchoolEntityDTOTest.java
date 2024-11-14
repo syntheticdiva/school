@@ -1,4 +1,4 @@
-package school.project.dto;
+package school.dto;
 
 import static org.junit.jupiter.api.Assertions.*;
 

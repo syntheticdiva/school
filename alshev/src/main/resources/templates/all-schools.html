@@ -144,16 +144,34 @@
             margin: 5px 0;
             color: #666;
         }
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+        }
     </style>
 </head>
 <body>
 <h1>Список школ</h1>
 
-<div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+<div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="alert alert-error" th:text="${errorMessage}"></div>
 
 <table>
     <thead>
     <tr>
+        <th>ID</th>
         <th>Название</th>
         <th>Адрес</th>
         <th>Действия</th>
@@ -161,11 +179,13 @@
     </thead>
     <tbody>
     <tr th:each="school : ${schools}">
+        <td th:text="${school.id}"></td>
         <td th:text="${school.name}"></td>
         <td th:text="${school.address}"></td>
         <td class="action-buttons">
-            <a th:href="@{/schools/edit/{id}(id=${school.id})}" class="btn btn-edit">Редактировать</a>
-            <a th:href="@{/schools/delete/{id}(id=${school.id})}"
+            <a th:href="@{${baseUrl} + ${editUrl}(id=${school.id})}"
+               class="btn btn-edit">Редактировать</a>
+            <a th:href="@{${baseUrl} + ${deleteUrl}(id=${school.id})}"
                class="btn btn-delete"
                onclick="return confirm('Вы уверены, что хотите удалить эту школу?')">Удалить</a>
         </td>
@@ -181,17 +201,17 @@
 
 <div class="pagination" th:if="${totalPages > 1}">
     <a th:if="${currentPage > 0}"
-       th:href="@{/schools(page=${currentPage - 1})}">&laquo; Предыдущая</a>
+       th:href="@{${baseUrl}(page=${currentPage - 1})}">&laquo; Предыдущая</a>
 
     <span th:each="i: ${#numbers.sequence(0, totalPages - 1)}">
-            <a th:href="@{/schools(page=${i})}"
-               th:text="${i + 1}"
-               th:class="${currentPage == i ? 'active' : ''}">
-            </a>
-        </span>
+        <a th:href="@{${baseUrl}(page=${i})}"
+           th:text="${i + 1}"
+           th:class="${currentPage == i ? 'active' : ''}">
+        </a>
+    </span>
 
     <a th:if="${currentPage < totalPages - 1}"
-       th:href="@{/schools(page=${currentPage + 1})}">Следующая &raquo;</a>
+       th:href="@{${baseUrl}(page=${currentPage + 1})}">Следующая &raquo;</a>
 </div>
 
 <div class="page-info" th:if="${currentPage != null and totalPages != null}">
@@ -199,7 +219,8 @@
 </div>
 
 <div style="text-align: center; margin-top: 20px;">
-    <a href="/schools/create" class="btn btn-add">Добавить новую школу</a>
+    <a th:href="@{${baseUrl} + ${createUrl}}"
+       class="btn btn-add">Добавить новую школу</a>
 </div>
 </body>
 </html>

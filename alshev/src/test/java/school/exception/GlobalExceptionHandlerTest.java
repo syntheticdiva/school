@@ -1,4 +1,4 @@
-package school.project.exception;
+package school.exception;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

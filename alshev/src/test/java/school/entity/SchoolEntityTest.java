@@ -1,4 +1,4 @@
-package school.project.entity;
+package school.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Validation;

@@ -125,7 +125,9 @@
 <h1>Создание новой школы</h1>
 
 <div class="form-container">
-    <form th:action="@{/schools}" th:object="${school}" method="post">
+    <form th:action="@{${baseUrl} + ${createUrl}}"
+          th:object="${school}"
+          method="post">
         <div class="form-group">
             <label for="name" class="required-field">Название школы</label>
             <input type="text"
@@ -153,7 +155,8 @@
         </div>
 
         <div class="buttons-container">
-            <a href="/schools" class="btn btn-secondary">Вернуться к списку</a>
+            <a th:href="@{${baseUrl}}"
+               class="btn btn-secondary">Вернуться к списку</a>
             <button type="submit" class="btn btn-primary">Создать школу</button>
         </div>
     </form>

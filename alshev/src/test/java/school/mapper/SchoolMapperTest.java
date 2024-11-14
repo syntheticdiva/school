@@ -1,10 +1,12 @@
-package school.project.mapper;
+package school.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import school.project.dto.SchoolCreateDTO;
-import school.project.dto.SchoolEntityDTO;
-import school.project.entity.SchoolEntity;
+import school.dto.SchoolCreateDTO;
+import school.dto.SchoolEntityDTO;
+import school.entity.SchoolEntity;
+import school.mapper.SchoolMapper;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 

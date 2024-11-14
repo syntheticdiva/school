@@ -5,7 +5,7 @@
     <link rel="icon" href="data:,">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
+  <style>
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -142,7 +142,7 @@
         Редактирование информации о школе ID: <span th:text="${school.id}"></span>
     </div>
 
-    <form th:action="@{/schools/update/{id}(id=${school.id})}"
+    <form th:action="@{${baseUrl} + ${updateUrl}(id=${school.id})}"
           th:object="${school}"
           method="post">
 
@@ -175,7 +175,7 @@
         </div>
 
         <div class="buttons-container">
-            <a href="/schools" class="btn btn-secondary">Вернуться к списку</a>
+            <a th:href="@{${baseUrl}}" class="btn btn-secondary">Вернуться к списку</a>
             <button type="submit" class="btn btn-primary">Сохранить изменения</button>
         </div>
     </form>

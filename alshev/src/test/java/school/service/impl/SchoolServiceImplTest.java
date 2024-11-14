@@ -1,4 +1,4 @@
-package school.project.service.impl;
+package school.service.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,12 +8,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import school.project.dto.SchoolCreateDTO;
-import school.project.dto.SchoolEntityDTO;
-import school.project.entity.SchoolEntity;
-import school.project.exception.ResourceNotFoundException;
-import school.project.mapper.SchoolMapper;
-import school.project.repository.SchoolRepository;
+import school.dto.SchoolCreateDTO;
+import school.dto.SchoolEntityDTO;
+import school.entity.SchoolEntity;
+import school.exception.ResourceNotFoundException;
+import school.mapper.SchoolMapper;
+import school.repository.SchoolRepository;
+
 
 import java.util.Arrays;
 import java.util.Optional;
