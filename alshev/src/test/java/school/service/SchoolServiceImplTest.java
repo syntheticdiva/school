@@ -1,4 +1,4 @@
-package school.service.impl;
+package school.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class SchoolServiceImplTest {
     private SchoolMapper schoolMapper;
 
     @InjectMocks
-    private SchoolServiceImpl schoolService;
+    private SchoolService schoolService;
 
     @BeforeEach
     void setUp() {
