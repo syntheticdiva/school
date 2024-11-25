@@ -28,8 +28,8 @@ public class SchoolController {
     public static final String DELETE_URL = "/delete/{id}";
 
     // Константы представлений
-    private static final String CREATE_VIEW = "create"; // Измените на соответствующее имя файла
-    private static final String EDIT_VIEW = "edit"; // Измените на соответствующее имя файла
+    private static final String CREATE_VIEW = "create";
+    private static final String EDIT_VIEW = "edit";
     private static final String LIST_VIEW = "all-schools";
 
     // Константы для пагинации и сообщений
