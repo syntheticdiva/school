@@ -42,7 +42,7 @@ public class NotificationService {
         int attempt = maxAttempts; // Текущая попытка
         boolean success = false; // Флаг успешной отправки
 
-        while (attempt != 0) {
+        while (attempt > 0) {
             try {
                 HttpHeaders headers = new HttpHeaders();
                 headers.set("Content-Type", "application/json");
@@ -53,16 +53,17 @@ public class NotificationService {
                 if (response.getStatusCode().is2xxSuccessful()) {
                     System.out.println("Notification sent successfully: " + message);
                     success = true; // Успешно отправлено
+                    break; // Выход из цикла при успешной отправке
                 } else {
                     System.out.println("Failed to send notification: " + message);
                 }
             } catch (Exception e) {
-                System.out.println("Error while sending notification on attempt " + (attempt + 1) + ": " + e.getMessage());
+                System.out.println("Error while sending notification on attempt " + (maxAttempts - attempt + 1) + ": " + e.getMessage());
             }
 
-            attempt++; // Увеличиваем количество попыток
+            attempt--; // Уменьшаем количество оставшихся попыток
 
-            if (!success && attempt < maxAttempts) { // Если не удалось и это не последняя попытка
+            if (!success && attempt > 0) { // Если не удалось и это не последняя попытка
                 try {
                     Thread.sleep(retryDelay); // Ждем перед следующей попыткой
                 } catch (InterruptedException ie) {
@@ -76,7 +77,6 @@ public class NotificationService {
             System.out.println("Max attempts reached. Notification could not be sent.");
         }
     }
-
     // Метод для создания DTO уведомления
     private NoificationResDto createNotificationResDto(SchoolEntityDTO school) {
         NoificationResDto notificationResDto = new NoificationResDto();
