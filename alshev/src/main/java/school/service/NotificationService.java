@@ -83,6 +83,7 @@ public class NotificationService {
         notificationResDto.setId(school.getId());
         notificationResDto.setName(school.getName());
         notificationResDto.setAddress(school.getAddress());
+        notificationResDto.setNew(school.isNew());
         return notificationResDto;
     }
 }

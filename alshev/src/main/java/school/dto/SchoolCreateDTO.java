@@ -17,4 +17,7 @@ public class SchoolCreateDTO {
     @NotBlank(message = "Адрес школы обязателен для заполнения")
     @Size(max = 200, message = "Адрес школы не должен превышать 200 символов")
     protected String address;
+
+    protected boolean isNew;
+
 }

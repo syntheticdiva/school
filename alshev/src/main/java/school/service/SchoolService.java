@@ -25,6 +25,7 @@ public class SchoolService {
         school = schoolRepository.save(school);
 
         SchoolEntityDTO schoolDTO = schoolMapper.toDto(school);
+        schoolDTO.setNew(true); // Устанавливаем флаг isNew в true
 
         // Отправляем уведомление о создании школы
         notificationService.handleSchoolCreationNotification(schoolDTO);
@@ -40,6 +41,7 @@ public class SchoolService {
         school = schoolRepository.save(school);
 
         SchoolEntityDTO updatedSchoolDTO = schoolMapper.toDto(school);
+        updatedSchoolDTO.setNew(false); // Устанавливаем флаг isNew в false
 
         // Отправляем уведомление об обновлении школы
         notificationService.handleSchoolUpdateNotification(updatedSchoolDTO);
@@ -47,6 +49,7 @@ public class SchoolService {
         return updatedSchoolDTO;
     }
 
+    // Остальные методы без изменений
     public void deleteById(Long id) {
         if (!schoolRepository.existsById(id)) {
             throw new ResourceNotFoundException("School not found with id: " + id);
